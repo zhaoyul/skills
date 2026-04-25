@@ -1,117 +1,117 @@
 ---
 name: write-a-skill
-description: Create new agent skills with proper structure, progressive disclosure, and bundled resources. Use when user wants to create, write, or build a new skill.
+description: 创建具有适当结构、渐进披露和捆绑资源的新 agent 技能。当用户想要创建、编写或构建新技能时使用。
 ---
 
-# Writing Skills
+# 编写技能
 
-## Process
+## 流程
 
-1. **Gather requirements** - ask user about:
-   - What task/domain does the skill cover?
-   - What specific use cases should it handle?
-   - Does it need executable scripts or just instructions?
-   - Any reference materials to include?
+1. **收集需求** - 询问用户：
+   - 技能涵盖什么任务/领域？
+   - 它应该处理什么特定用例？
+   - 它需要可执行脚本还是只需要说明？
+   - 要包含的任何参考材料？
 
-2. **Draft the skill** - create:
-   - SKILL.md with concise instructions
-   - Additional reference files if content exceeds 500 lines
-   - Utility scripts if deterministic operations needed
+2. **起草技能** - 创建：
+   - 包含简明说明的 SKILL.md
+   - 如果内容超过 500 行，则添加额外的参考文件
+   - 如果需要确定性操作，则添加实用脚本
 
-3. **Review with user** - present draft and ask:
-   - Does this cover your use cases?
-   - Anything missing or unclear?
-   - Should any section be more/less detailed?
+3. **与用户审查** - 呈现草稿并询问：
+   - 这是否涵盖了你的用例？
+   - 有什么遗漏或不清楚的地方吗？
+   - 哪个部分应该更/更少详细？
 
-## Skill Structure
+## 技能结构
 
 ```
 skill-name/
-├── SKILL.md           # Main instructions (required)
-├── REFERENCE.md       # Detailed docs (if needed)
-├── EXAMPLES.md        # Usage examples (if needed)
-└── scripts/           # Utility scripts (if needed)
+├── SKILL.md           # 主要说明（必需）
+├── REFERENCE.md       # 详细文档（如果需要）
+├── EXAMPLES.md        # 使用示例（如果需要）
+└── scripts/           # 实用脚本（如果需要）
     └── helper.js
 ```
 
-## SKILL.md Template
+## SKILL.md 模板
 
 ```md
 ---
 name: skill-name
-description: Brief description of capability. Use when [specific triggers].
+description: 能力的简要描述。当 [特定触发器] 时使用。
 ---
 
-# Skill Name
+# 技能名称
 
-## Quick start
+## 快速开始
 
-[Minimal working example]
+[最小工作示例]
 
-## Workflows
+## 工作流程
 
-[Step-by-step processes with checklists for complex tasks]
+[包含复杂任务检查清单的分步流程]
 
-## Advanced features
+## 高级功能
 
-[Link to separate files: See [REFERENCE.md](REFERENCE.md)]
+[链接到单独的文件：参见 [REFERENCE.md](REFERENCE.md)]
 ```
 
-## Description Requirements
+## 描述要求
 
-The description is **the only thing your agent sees** when deciding which skill to load. It's surfaced in the system prompt alongside all other installed skills. Your agent reads these descriptions and picks the relevant skill based on the user's request.
+描述是**你的 agent 在决定加载哪个技能时看到的唯一内容**。它与所有其他已安装的技能一起出现在系统提示中。你的 agent 阅读这些描述并根据用户的请求选择相关技能。
 
-**Goal**: Give your agent just enough info to know:
+**目标**：给你的 agent 足够的信息以了解：
 
-1. What capability this skill provides
-2. When/why to trigger it (specific keywords, contexts, file types)
+1. 此技能提供什么能力
+2. 何时/为何触发它（特定关键字、上下文、文件类型）
 
-**Format**:
+**格式**：
 
-- Max 1024 chars
-- Write in third person
-- First sentence: what it does
-- Second sentence: "Use when [specific triggers]"
+- 最多 1024 个字符
+- 使用第三人称
+- 第一句：它做什么
+- 第二句："当 [特定触发器] 时使用"
 
-**Good example**:
-
-```
-Extract text and tables from PDF files, fill forms, merge documents. Use when working with PDF files or when user mentions PDFs, forms, or document extraction.
-```
-
-**Bad example**:
+**好示例**：
 
 ```
-Helps with documents.
+从 PDF 文件中提取文本和表格，填写表单，合并文档。当处理 PDF 文件或当用户提到 PDF、表单或文档提取时使用。
 ```
 
-The bad example gives your agent no way to distinguish this from other document skills.
+**坏示例**：
 
-## When to Add Scripts
+```
+帮助处理文档。
+```
 
-Add utility scripts when:
+坏示例没有给你的 agent 任何方式将其与其他文档技能区分开来。
 
-- Operation is deterministic (validation, formatting)
-- Same code would be generated repeatedly
-- Errors need explicit handling
+## 何时添加脚本
 
-Scripts save tokens and improve reliability vs generated code.
+在以下情况下添加实用脚本：
 
-## When to Split Files
+- 操作是确定性的（验证、格式化）
+- 相同的代码会被重复生成
+- 错误需要显式处理
 
-Split into separate files when:
+脚本节省 token 并提高可靠性，相对于生成的代码。
 
-- SKILL.md exceeds 100 lines
-- Content has distinct domains (finance vs sales schemas)
-- Advanced features are rarely needed
+## 何时拆分文件
 
-## Review Checklist
+在以下情况下拆分为单独的文件：
 
-After drafting, verify:
+- SKILL.md 超过 100 行
+- 内容有不同的域（财务 vs 销售 schema）
+- 高级功能很少需要
 
-- [ ] Description includes triggers ("Use when...")
-- [ ] SKILL.md under 100 lines
-- [ ] No time-sensitive info
-- [ ] Consistent terminology
-- [ ] Concrete examples included
-- [ ] References one level deep
+## 审查检查清单
+
+起草后，验证：
+
+- [ ] 描述包含触发器（"当...时使用"）
+- [ ] SKILL.md 少于 100 行
+- [ ] 没有时间敏感信息
+- [ ] 一致的术语
+- [ ] 包含具体示例
+- [ ] 引用深度为一级

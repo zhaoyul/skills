@@ -1,79 +1,79 @@
 ---
 name: to-issues
-description: Break a plan, spec, or PRD into independently-grabbable GitHub issues using tracer-bullet vertical slices. Use when user wants to convert a plan into issues, create implementation tickets, or break down work into issues.
+description: 使用追踪弹式垂直切片将计划、规格或 PRD 分解为可独立认领的 GitHub issues。当用户想要将计划转换为 issues、创建实现工单或将工作分解为 issues 时使用。
 ---
 
-# To Issues
+# 转为 Issues
 
-Break a plan into independently-grabbable GitHub issues using vertical slices (tracer bullets).
+使用垂直切片（追踪弹）将计划分解为可独立认领的 GitHub issues。
 
-## Process
+## 流程
 
-### 1. Gather context
+### 1. 收集上下文
 
-Work from whatever is already in the conversation context. If the user passes a GitHub issue number or URL as an argument, fetch it with `gh issue view <number>` (with comments).
+使用对话上下文中已有的任何内容。如果用户传递 GitHub issue 编号或 URL 作为参数，使用 `gh issue view <number>`（带评论）获取它。
 
-### 2. Explore the codebase (optional)
+### 2. 探索代码库（可选）
 
-If you have not already explored the codebase, do so to understand the current state of the code.
+如果尚未探索代码库，请探索以了解代码的当前状态。
 
-### 3. Draft vertical slices
+### 3. 起草垂直切片
 
-Break the plan into **tracer bullet** issues. Each issue is a thin vertical slice that cuts through ALL integration layers end-to-end, NOT a horizontal slice of one layer.
+将计划分解为**追踪弹** issues。每个 issue 都是一个薄的垂直切片，端到端地贯穿所有集成层，而不是一个层的水平切片。
 
-Slices may be 'HITL' or 'AFK'. HITL slices require human interaction, such as an architectural decision or a design review. AFK slices can be implemented and merged without human interaction. Prefer AFK over HITL where possible.
+切片可能是 'HITL' 或 'AFK'。HITL 切片需要人工交互，例如架构决策或设计审查。AFK 切片可以在无人工交互的情况下实现和合并。在可能的情况下优先选择 AFK 而非 HITL。
 
 <vertical-slice-rules>
-- Each slice delivers a narrow but COMPLETE path through every layer (schema, API, UI, tests)
-- A completed slice is demoable or verifiable on its own
-- Prefer many thin slices over few thick ones
+- 每个切片通过每个层（schema、API、UI、tests）提供一条狭窄但完整的路径
+- 完成的切片本身是可演示或可验证的
+- 优先选择多个薄切片而非少数厚切片
 </vertical-slice-rules>
 
-### 4. Quiz the user
+### 4. 询问用户
 
-Present the proposed breakdown as a numbered list. For each slice, show:
+将提议的分解作为带编号的列表呈现。对于每个切片，显示：
 
-- **Title**: short descriptive name
-- **Type**: HITL / AFK
-- **Blocked by**: which other slices (if any) must complete first
-- **User stories covered**: which user stories this addresses (if the source material has them)
+- **标题**：简短描述性名称
+- **类型**：HITL / AFK
+- **阻塞者**：哪些其他切片（如果有）必须首先完成
+- **涵盖的用户故事**：这解决了哪些用户故事（如果源材料有的话）
 
-Ask the user:
+询问用户：
 
-- Does the granularity feel right? (too coarse / too fine)
-- Are the dependency relationships correct?
-- Should any slices be merged or split further?
-- Are the correct slices marked as HITL and AFK?
+- 粒度是否合适？（太粗/太细）
+- 依赖关系是否正确？
+- 是否应该合并或进一步拆分任何切片？
+- 正确的切片是否标记为 HITL 和 AFK？
 
-Iterate until the user approves the breakdown.
+迭代直到用户批准分解。
 
-### 5. Create the GitHub issues
+### 5. 创建 GitHub issues
 
-For each approved slice, create a GitHub issue using `gh issue create`. Use the issue body template below.
+对于每个已批准的切片，使用 `gh issue create` 创建 GitHub issue。使用下面的 issue 正文模板。
 
-Create issues in dependency order (blockers first) so you can reference real issue numbers in the "Blocked by" field.
+按依赖顺序创建 issues（阻塞者优先），以便你可以在 "Blocked by" 字段中引用真实的 issue 编号。
 
 <issue-template>
-## Parent
+## 父 issue
 
-#<parent-issue-number> (if the source was a GitHub issue, otherwise omit this section)
+#<parent-issue-number>（如果源是 GitHub issue，否则省略此部分）
 
-## What to build
+## 要构建的内容
 
-A concise description of this vertical slice. Describe the end-to-end behavior, not layer-by-layer implementation.
+此垂直切片的简明描述。描述端到端行为，而非逐层实现。
 
-## Acceptance criteria
+## 验收标准
 
-- [ ] Criterion 1
-- [ ] Criterion 2
-- [ ] Criterion 3
+- [ ] 标准 1
+- [ ] 标准 2
+- [ ] 标准 3
 
-## Blocked by
+## 阻塞于
 
-- Blocked by #<issue-number> (if any)
+- Blocked by #<issue-number>（如果有）
 
-Or "None - can start immediately" if no blockers.
+或“无——可以立即开始”，如果没有阻塞者。
 
 </issue-template>
 
-Do NOT close or modify any parent issue.
+不要关闭或修改任何父 issue。

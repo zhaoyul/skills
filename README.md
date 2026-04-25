@@ -1,110 +1,110 @@
-# Agent Skills
+# Agent 技能
 
-A collection of agent skills that extend capabilities across planning, development, and tooling.
+一个跨规划、开发和工具的 agent 技能集合，用于扩展能力。
 
-## Planning & Design
+## 规划与设计
 
-These skills help you think through problems before writing code.
+这些技能帮助你在编写代码之前思考问题。
 
-- **to-prd** — Turn the current conversation context into a PRD and submit it as a GitHub issue. No interview — just synthesizes what you've already discussed.
+- **to-prd** — 将当前对话上下文转化为 PRD 并作为 GitHub issue 提交。无需访谈——仅综合你已经讨论的内容。
 
   ```
   npx skills@latest add mattpocock/skills/to-prd
   ```
 
-- **to-issues** — Break any plan, spec, or PRD into independently-grabbable GitHub issues using vertical slices.
+- **to-issues** — 使用垂直切片将任何计划、规格或 PRD 分解为可独立认领的 GitHub issues。
 
   ```
   npx skills@latest add mattpocock/skills/to-issues
   ```
 
-- **grill-me** — Get relentlessly interviewed about a plan or design until every branch of the decision tree is resolved.
+- **grill-me** — 对计划或设计进行无情的访谈，直到决策树的每个分支都得到解决。
 
   ```
   npx skills@latest add mattpocock/skills/grill-me
   ```
 
-- **design-an-interface** — Generate multiple radically different interface designs for a module using parallel sub-agents.
+- **design-an-interface** — 使用并行子代理为模块生成多个截然不同的接口设计。
 
   ```
   npx skills@latest add mattpocock/skills/design-an-interface
   ```
 
-- **request-refactor-plan** — Create a detailed refactor plan with tiny commits via user interview, then file it as a GitHub issue.
+- **request-refactor-plan** — 通过用户访谈创建包含微小提交的详细重构计划，然后将其归档为 GitHub issue。
 
   ```
   npx skills@latest add mattpocock/skills/request-refactor-plan
   ```
 
-## Development
+## 开发
 
-These skills help you write, refactor, and fix code.
+这些技能帮助你编写、重构和修复代码。
 
-- **tdd** — Test-driven development with a red-green-refactor loop. Builds features or fixes bugs one vertical slice at a time.
+- **tdd** — 使用红-绿-重构循环的测试驱动开发。每次构建一个垂直切片的功能或修复 bug。
 
   ```
   npx skills@latest add mattpocock/skills/tdd
   ```
 
-- **triage-issue** — Investigate a bug by exploring the codebase, identify the root cause, and file a GitHub issue with a TDD-based fix plan.
+- **triage-issue** — 通过探索代码库调查 bug，识别根本原因，并提交包含基于 TDD 的修复计划的 GitHub issue。
 
   ```
   npx skills@latest add mattpocock/skills/triage-issue
   ```
 
-- **improve-codebase-architecture** — Find deepening opportunities in a codebase, informed by the domain language in `CONTEXT.md` and the decisions in `docs/adr/`.
+- **improve-codebase-architecture** — 在代码库中寻找深化机会，参考 `CONTEXT.md` 中的领域语言和 `docs/adr/` 中的决策。
 
   ```
   npx skills@latest add mattpocock/skills/improve-codebase-architecture
   ```
 
-- **migrate-to-shoehorn** — Migrate test files from `as` type assertions to @total-typescript/shoehorn.
+- **migrate-to-shoehorn** — 将测试文件从 `as` 类型断言迁移到 @total-typescript/shoehorn。
 
   ```
   npx skills@latest add mattpocock/skills/migrate-to-shoehorn
   ```
 
-- **scaffold-exercises** — Create exercise directory structures with sections, problems, solutions, and explainers.
+- **scaffold-exercises** — 创建包含章节、问题、解决方案和说明的练习目录结构。
 
   ```
   npx skills@latest add mattpocock/skills/scaffold-exercises
   ```
 
-## Tooling & Setup
+## 工具与设置
 
-- **setup-pre-commit** — Set up Husky pre-commit hooks with lint-staged, Prettier, type checking, and tests.
+- **setup-pre-commit** — 使用 lint-staged、Prettier、类型检查和测试设置 Husky pre-commit hooks。
 
   ```
   npx skills@latest add mattpocock/skills/setup-pre-commit
   ```
 
-- **git-guardrails-claude-code** — Set up Claude Code hooks to block dangerous git commands (push, reset --hard, clean, etc.) before they execute.
+- **git-guardrails-claude-code** — 设置 Claude Code hooks 以在执行前阻止危险的 git 命令（push、reset --hard、clean 等）。
 
   ```
   npx skills@latest add mattpocock/skills/git-guardrails-claude-code
   ```
 
-## Writing & Knowledge
+## 写作与知识
 
-- **write-a-skill** — Create new skills with proper structure, progressive disclosure, and bundled resources.
+- **write-a-skill** — 创建具有适当结构、渐进披露和捆绑资源的新技能。
 
   ```
   npx skills@latest add mattpocock/skills/write-a-skill
   ```
 
-- **edit-article** — Edit and improve articles by restructuring sections, improving clarity, and tightening prose.
+- **edit-article** — 通过重组章节、提高清晰度和精简文字来编辑和改进文章。
 
   ```
   npx skills@latest add mattpocock/skills/edit-article
   ```
 
-- **ubiquitous-language** — Extract a DDD-style ubiquitous language glossary from the current conversation.
+- **ubiquitous-language** — 从当前对话中提取 DDD 风格的通用语言术语表。
 
   ```
   npx skills@latest add mattpocock/skills/ubiquitous-language
   ```
 
-- **obsidian-vault** — Search, create, and manage notes in an Obsidian vault with wikilinks and index notes.
+- **obsidian-vault** — 使用 wikilinks 和索引笔记在 Obsidian vault 中搜索、创建和管理笔记。
 
   ```
   npx skills@latest add mattpocock/skills/obsidian-vault
