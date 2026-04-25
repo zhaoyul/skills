@@ -1,102 +1,102 @@
 ---
 name: triage-issue
-description: Triage a bug or issue by exploring the codebase to find root cause, then create a GitHub issue with a TDD-based fix plan. Use when user reports a bug, wants to file an issue, mentions "triage", or wants to investigate and plan a fix for a problem.
+description: 通过探索代码库以找到根本原因来对 bug 或 issue 进行分类，然后创建包含基于 TDD 的修复计划的 GitHub issue。当用户报告 bug、想要提交 issue、提到 "triage" 或想要调查并规划问题的修复时使用。
 ---
 
-# Triage Issue
+# 分类 Issue
 
-Investigate a reported problem, find its root cause, and create a GitHub issue with a TDD fix plan. This is a mostly hands-off workflow - minimize questions to the user.
+调查报告的问题，找到其根本原因，并创建包含 TDD 修复计划的 GitHub issue。这是一个大部分不需要干预的工作流程 - 尽量减少对用户的提问。
 
-## Process
+## 流程
 
-### 1. Capture the problem
+### 1. 捕获问题
 
-Get a brief description of the issue from the user. If they haven't provided one, ask ONE question: "What's the problem you're seeing?"
+从用户那里获得问题的简要描述。如果他们没有提供，问一个问题："你看到的问题是什么？"
 
-Do NOT ask follow-up questions yet. Start investigating immediately.
+不要马上问后续问题。立即开始调查。
 
-### 2. Explore and diagnose
+### 2. 探索和诊断
 
-Use the Agent tool with subagent_type=Explore to deeply investigate the codebase. Your goal is to find:
+使用 Agent 工具（subagent_type=Explore）深入调查代码库。你的目标是找到：
 
-- **Where** the bug manifests (entry points, UI, API responses)
-- **What** code path is involved (trace the flow)
-- **Why** it fails (the root cause, not just the symptom)
-- **What** related code exists (similar patterns, tests, adjacent modules)
+- **在哪里** bug 表现出来（入口点、UI、API 响应）
+- **什么** 代码路径涉及（跟踪流程）
+- **为什么** 它失败（根本原因，而不仅仅是症状）
+- **什么** 相关代码存在（类似模式、测试、相邻模块）
 
-Look at:
-- Related source files and their dependencies
-- Existing tests (what's tested, what's missing)
-- Recent changes to affected files (`git log` on relevant files)
-- Error handling in the code path
-- Similar patterns elsewhere in the codebase that work correctly
+查看：
+- 相关源文件及其依赖项
+- 现有测试（测试了什么，缺少什么）
+- 受影响文件的最近更改（相关文件上的 `git log`）
+- 代码路径中的错误处理
+- 代码库中其他地方正常工作的类似模式
 
-### 3. Identify the fix approach
+### 3. 确定修复方法
 
-Based on your investigation, determine:
+根据你的调查，确定：
 
-- The minimal change needed to fix the root cause
-- Which modules/interfaces are affected
-- What behaviors need to be verified via tests
-- Whether this is a regression, missing feature, or design flaw
+- 修复根本原因所需的最小更改
+- 哪些模块/接口受到影响
+- 需要通过测试验证哪些行为
+- 这是回归、缺失功能还是设计缺陷
 
-### 4. Design TDD fix plan
+### 4. 设计 TDD 修复计划
 
-Create a concrete, ordered list of RED-GREEN cycles. Each cycle is one vertical slice:
+创建一个具体的、有序的 RED-GREEN 循环列表。每个循环是一个垂直切片：
 
-- **RED**: Describe a specific test that captures the broken/missing behavior
-- **GREEN**: Describe the minimal code change to make that test pass
+- **RED**：描述捕获损坏/缺失行为的特定测试
+- **GREEN**：描述使该测试通过的最小代码更改
 
-Rules:
-- Tests verify behavior through public interfaces, not implementation details
-- One test at a time, vertical slices (NOT all tests first, then all code)
-- Each test should survive internal refactors
-- Include a final refactor step if needed
-- **Durability**: Only suggest fixes that would survive radical codebase changes. Describe behaviors and contracts, not internal structure. Tests assert on observable outcomes (API responses, UI state, user-visible effects), not internal state. A good suggestion reads like a spec; a bad one reads like a diff.
+规则：
+- 测试通过公共接口验证行为，而不是实现细节
+- 一次一个测试，垂直切片（不是先所有测试，然后所有代码）
+- 每个测试都应该在内部重构后存活
+- 如果需要，包括最终重构步骤
+- **持久性**：只建议能在代码库根本性变化后存活的修复。描述行为和契约，而不是内部结构。测试断言可观察的结果（API 响应、UI 状态、用户可见的效果），而不是内部状态。好的建议读起来像规格；坏的读起来像差异。
 
-### 5. Create the GitHub issue
+### 5. 创建 GitHub issue
 
-Create a GitHub issue using `gh issue create` with the template below. Do NOT ask the user to review before creating - just create it and share the URL.
+使用 `gh issue create` 和下面的模板创建 GitHub issue。不要在创建前要求用户审查 - 只需创建它并分享 URL。
 
 <issue-template>
 
-## Problem
+## 问题
 
-A clear description of the bug or issue, including:
-- What happens (actual behavior)
-- What should happen (expected behavior)
-- How to reproduce (if applicable)
+对 bug 或 issue 的清晰描述，包括：
+- 发生了什么（实际行为）
+- 应该发生什么（预期行为）
+- 如何重现（如果适用）
 
-## Root Cause Analysis
+## 根因分析
 
-Describe what you found during investigation:
-- The code path involved
-- Why the current code fails
-- Any contributing factors
+描述你在调查期间发现的内容：
+- 涉及的代码路径
+- 为什么当前代码失败
+- 任何促成因素
 
-Do NOT include specific file paths, line numbers, or implementation details that couple to current code layout. Describe modules, behaviors, and contracts instead. The issue should remain useful even after major refactors.
+不要包含与当前代码布局耦合的特定文件路径、行号或实现细节。相反，描述模块、行为和契约。即使在重大重构后，该 issue 也应该保持有用。
 
-## TDD Fix Plan
+## TDD 修复计划
 
-A numbered list of RED-GREEN cycles:
+RED-GREEN 循环的带编号列表：
 
-1. **RED**: Write a test that [describes expected behavior]
-   **GREEN**: [Minimal change to make it pass]
+1. **RED**：编写一个测试 [描述预期行为]
+   **GREEN**：[使其通过的最小更改]
 
-2. **RED**: Write a test that [describes next behavior]
-   **GREEN**: [Minimal change to make it pass]
+2. **RED**：编写一个测试 [描述下一个行为]
+   **GREEN**：[使其通过的最小更改]
 
 ...
 
-**REFACTOR**: [Any cleanup needed after all tests pass]
+**REFACTOR**：[所有测试通过后需要的任何清理]
 
-## Acceptance Criteria
+## 验收标准
 
-- [ ] Criterion 1
-- [ ] Criterion 2
-- [ ] All new tests pass
-- [ ] Existing tests still pass
+- [ ] 标准 1
+- [ ] 标准 2
+- [ ] 所有新测试通过
+- [ ] 现有测试仍然通过
 
 </issue-template>
 
-After creating the issue, print the issue URL and a one-line summary of the root cause.
+创建 issue 后，打印 issue URL 和根本原因的单行摘要。

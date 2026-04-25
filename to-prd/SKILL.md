@@ -1,72 +1,72 @@
 ---
 name: to-prd
-description: Turn the current conversation context into a PRD and submit it as a GitHub issue. Use when user wants to create a PRD from the current context.
+description: 将当前对话上下文转化为 PRD 并作为 GitHub issue 提交。当用户想要从当前上下文创建 PRD 时使用。
 ---
 
-This skill takes the current conversation context and codebase understanding and produces a PRD. Do NOT interview the user — just synthesize what you already know.
+此技能将当前对话上下文和代码库理解转化为 PRD。不要访谈用户——只需综合你已经知道的内容。
 
-## Process
+## 流程
 
-1. Explore the repo to understand the current state of the codebase, if you haven't already.
+1. 探索仓库以了解代码库的当前状态（如果尚未完成）。
 
-2. Sketch out the major modules you will need to build or modify to complete the implementation. Actively look for opportunities to extract deep modules that can be tested in isolation.
+2. 勾画出完成实现所需构建或修改的主要模块。积极寻找可以独立测试的深度模块提取机会。
 
-A deep module (as opposed to a shallow module) is one which encapsulates a lot of functionality in a simple, testable interface which rarely changes.
+深度模块（相对于浅层模块）是指在简单、可测试的接口中封装大量功能的模块，该接口很少改变。
 
-Check with the user that these modules match their expectations. Check with the user which modules they want tests written for.
+与用户确认这些模块符合他们的期望。与用户确认他们希望为哪些模块编写测试。
 
-3. Write the PRD using the template below and submit it as a GitHub issue.
+3. 使用下面的模板编写 PRD 并将其作为 GitHub issue 提交。
 
 <prd-template>
 
-## Problem Statement
+## 问题陈述
 
-The problem that the user is facing, from the user's perspective.
+从用户角度描述用户面临的问题。
 
-## Solution
+## 解决方案
 
-The solution to the problem, from the user's perspective.
+从用户角度描述问题的解决方案。
 
-## User Stories
+## 用户故事
 
-A LONG, numbered list of user stories. Each user story should be in the format of:
+一个详细的、带编号的用户故事列表。每个用户故事应采用以下格式：
 
-1. As an <actor>, I want a <feature>, so that <benefit>
+1. 作为一个 <角色>，我想要 <功能>，以便 <收益>
 
 <user-story-example>
-1. As a mobile bank customer, I want to see balance on my accounts, so that I can make better informed decisions about my spending
+1. 作为移动银行客户，我想要查看账户余额，以便我可以更明智地决定我的支出
 </user-story-example>
 
-This list of user stories should be extremely extensive and cover all aspects of the feature.
+此用户故事列表应该极其详尽，涵盖功能的所有方面。
 
-## Implementation Decisions
+## 实现决策
 
-A list of implementation decisions that were made. This can include:
+已做出的实现决策列表。这可以包括：
 
-- The modules that will be built/modified
-- The interfaces of those modules that will be modified
-- Technical clarifications from the developer
-- Architectural decisions
-- Schema changes
-- API contracts
-- Specific interactions
+- 将要构建/修改的模块
+- 将要修改的这些模块的接口
+- 来自开发人员的技术澄清
+- 架构决策
+- Schema 更改
+- API 契约
+- 特定交互
 
-Do NOT include specific file paths or code snippets. They may end up being outdated very quickly.
+不要包含特定文件路径或代码片段。它们可能很快就会过时。
 
-## Testing Decisions
+## 测试决策
 
-A list of testing decisions that were made. Include:
+已做出的测试决策列表。包括：
 
-- A description of what makes a good test (only test external behavior, not implementation details)
-- Which modules will be tested
-- Prior art for the tests (i.e. similar types of tests in the codebase)
+- 对什么是好测试的描述（仅测试外部行为，而非实现细节）
+- 将要测试的模块
+- 测试的先例（即代码库中类似类型的测试）
 
-## Out of Scope
+## 范围外
 
-A description of the things that are out of scope for this PRD.
+对此 PRD 范围外事项的描述。
 
-## Further Notes
+## 进一步说明
 
-Any further notes about the feature.
+关于该功能的任何进一步说明。
 
 </prd-template>
