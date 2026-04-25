@@ -2,11 +2,19 @@
 
 一个跨规划、开发和工具的 agent 技能集合，用于扩展能力。
 
-安装技能前，请先将 GitHub CLI 更新到 `2.90.0` 或更高版本，然后使用 `gh skill install`：
+推荐使用 GitHub CLI 安装技能。请先将 GitHub CLI 更新到 `2.90.0` 或更高版本，然后执行：
 
 ```bash
 gh skill install zhaoyul/skills <skill-name>
 ```
+
+如果你的电脑还没有安装 `gh`，也可以在安装了 Node.js 的情况下使用 `npx` 安装指定技能：
+
+```bash
+npx skills@latest add zhaoyul/skills --skill <skill-name>
+```
+
+下面的示例默认使用 `gh skill install`；如果未安装 GitHub CLI，可将命令替换为上面的 `npx` 写法。
 
 ## 规划与设计
 
