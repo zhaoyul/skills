@@ -59,6 +59,6 @@ cat broken.lisp | bb /absolute/path/to/paren-lisp-repair.bb
 ## 注意事项
 
 - 这是**分隔符修复工具**，不是某个方言专属 formatter
-- 它基于 parinfer 思路，最适合“缩进大体可信，但括号错了”的场景
+- 它使用轻量级 delimiter balancing 规则，最适合“主要是括号错配”的场景
 - 如果文件扩展名不在支持列表中，默认拒绝处理，避免误改非 Lisp 文件
 - 对于极度损坏或缩进本身不可信的代码，可能无法自动修复

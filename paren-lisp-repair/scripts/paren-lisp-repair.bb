@@ -1,17 +1,14 @@
 #!/usr/bin/env bb
 
-(babashka.deps/add-deps '{:deps {parinferish/parinferish {:mvn/version "0.8.0"}}})
-
 (ns paren-lisp-repair
   (:require [babashka.fs :as fs]
-            [clojure.string :as string]
-            [parinferish.core :as parinferish]))
+            [clojure.string :as string]))
 
 (def supported-extensions
-  #{".el" ".elisp"
-    ".scm" ".ss" ".sld" ".sls" ".rkt"
-    ".lisp" ".lsp" ".cl" ".asd"
-    ".sexp"})
+  #{"el" "elisp"
+    "scm" "ss" "sld" "sls" "rkt"
+    "lisp" "lsp" "cl" "asd"
+    "sexp"})
 
 (defn has-stdin-data? []
   (try
@@ -22,29 +19,129 @@
   (contains? supported-extensions
              (some-> path fs/extension string/lower-case)))
 
-(defn attempt-repair [input mode]
-  (try
-    {:success true
-     :mode mode
-     :text (-> input
-               (parinferish/parse {:mode mode})
-               parinferish/flatten)}
-    (catch Exception e
-      {:success false
-       :mode mode
-       :error (.getMessage e)})))
-
 (defn repair-text [input]
-  (let [indent-result (attempt-repair input :indent)]
-    (if (:success indent-result)
-      (assoc indent-result :changed (not= input (:text indent-result)))
-      (let [paren-result (attempt-repair input :paren)]
-        (if (:success paren-result)
-          (assoc paren-result :changed (not= input (:text paren-result)))
-          {:success false
-           :error (or (:error paren-result)
-                      (:error indent-result)
-                      "Could not repair delimiters")})))))
+  (let [open->close {\( \) \[ \] \{ \}}
+        close->open (zipmap (vals open->close) (keys open->close))
+        chars (vec input)]
+    (loop [idx 0
+           out []
+           stack []
+           in-string? false
+           escaped? false
+           line-comment? false
+           block-comment-depth 0
+           char-literal? false
+           changed? false]
+      (if (= idx (count chars))
+        {:success true
+         :changed (or changed? (seq stack))
+         :text (apply str (concat out (map open->close (reverse stack))))}
+        (let [ch (nth chars idx)
+              next-ch (when (< (inc idx) (count chars))
+                        (nth chars (inc idx)))]
+          (cond
+            char-literal?
+            (recur (inc idx) (conj out ch) stack in-string? false line-comment? block-comment-depth false changed?)
+
+            (> block-comment-depth 0)
+            (cond
+              (and (= ch \#) (= next-ch \|))
+              (recur (+ idx 2)
+                     (conj out ch next-ch)
+                     stack
+                     in-string?
+                     escaped?
+                     line-comment?
+                     (inc block-comment-depth)
+                     false
+                     changed?)
+
+              (and (= ch \|) (= next-ch \#))
+              (recur (+ idx 2)
+                     (conj out ch next-ch)
+                     stack
+                     in-string?
+                     escaped?
+                     line-comment?
+                     (dec block-comment-depth)
+                     false
+                     changed?)
+
+              :else
+              (recur (inc idx) (conj out ch) stack in-string? escaped? line-comment? block-comment-depth false changed?))
+
+            line-comment?
+            (recur (inc idx)
+                   (conj out ch)
+                   stack
+                   in-string?
+                   escaped?
+                   (not= ch \newline)
+                   block-comment-depth
+                   false
+                   changed?)
+
+            in-string?
+            (cond
+              escaped?
+              (recur (inc idx) (conj out ch) stack true false line-comment? block-comment-depth false changed?)
+
+              (= ch \\)
+              (recur (inc idx) (conj out ch) stack true true line-comment? block-comment-depth false changed?)
+
+              (= ch \")
+              (recur (inc idx) (conj out ch) stack false false line-comment? block-comment-depth false changed?)
+
+              :else
+              (recur (inc idx) (conj out ch) stack true false line-comment? block-comment-depth false changed?))
+
+            (and (= ch \#) (= next-ch \|))
+            (recur (+ idx 2)
+                   (conj out ch next-ch)
+                   stack
+                   in-string?
+                   escaped?
+                   line-comment?
+                   1
+                   false
+                   changed?)
+
+            (= ch \;)
+            (recur (inc idx) (conj out ch) stack in-string? escaped? true block-comment-depth false changed?)
+
+            (= ch \")
+            (recur (inc idx) (conj out ch) stack true false line-comment? block-comment-depth false changed?)
+
+            (and (= ch \#) (= next-ch \\))
+            (recur (+ idx 2)
+                   (conj out ch next-ch)
+                   stack
+                   in-string?
+                   escaped?
+                   line-comment?
+                   block-comment-depth
+                   true
+                   changed?)
+
+            (contains? open->close ch)
+            (recur (inc idx) (conj out ch) (conj stack ch) in-string? escaped? line-comment? block-comment-depth false changed?)
+
+            (contains? close->open ch)
+            (if-let [open (peek stack)]
+              (let [expected (open->close open)]
+                (recur (inc idx)
+                       (conj out expected)
+                       (pop stack)
+                       in-string?
+                       escaped?
+                       line-comment?
+                       block-comment-depth
+                       false
+                       (or changed? (not= ch expected))))
+              (recur (inc idx) out stack in-string? escaped? line-comment? block-comment-depth false true))
+
+            :else
+            (recur (inc idx) (conj out ch) stack in-string? escaped? line-comment? block-comment-depth false changed?)))))))
 
 (defn process-stdin []
   (let [input (slurp *in*)
@@ -78,7 +175,7 @@
 
     :else
     (let [input (slurp path)
-          {:keys [success text changed error mode]} (repair-text input)]
+          {:keys [success text changed error]} (repair-text input)]
       (if success
         (do
           (when changed
@@ -86,7 +183,7 @@
           {:success true
            :path path
            :message (if changed
-                      (str "Repaired with " (name mode) " mode")
+                      "Repaired delimiters"
                       "Already balanced")})
         {:success false
          :path path
