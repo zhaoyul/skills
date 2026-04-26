@@ -54,6 +54,12 @@ npx skills@latest add zhaoyul/skills --skill <skill-name>
 
 这些技能帮助你编写、重构和修复代码。
 
+- **clojure-mcp-light** — 在 Clojure 项目中组合使用 `clj-nrepl-eval`、`clj-paren-repair-claude-hook` 和 `clj-paren-repair` 进行 nREPL 求值与分隔符修复。
+
+  ```
+  gh skill install zhaoyul/skills clojure-mcp-light
+  ```
+
 - **tdd** — 使用红-绿-重构循环的测试驱动开发。每次构建一个垂直切片的功能或修复 bug。
 
   ```
