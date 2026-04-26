@@ -60,6 +60,12 @@ npx skills@latest add zhaoyul/skills --skill <skill-name>
   gh skill install zhaoyul/skills clojure-mcp-light
   ```
 
+- **paren-lisp-repair** — 使用捆绑的 Babashka 脚本修复 Emacs Lisp、Scheme、Common Lisp 等 Lisp 文件中的括号/分隔符错误。
+
+  ```
+  gh skill install zhaoyul/skills paren-lisp-repair
+  ```
+
 - **tdd** — 使用红-绿-重构循环的测试驱动开发。每次构建一个垂直切片的功能或修复 bug。
 
   ```
