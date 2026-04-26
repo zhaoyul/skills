@@ -1,6 +1,6 @@
 ---
 name: paren-lisp-repair
-description: 使用捆绑的 Babashka 脚本修复 Emacs Lisp、Scheme、Common Lisp 等 Lisp 文件的括号/分隔符错误. 当用户提到 Lisp 括号错配、Paren Edit Death Loop、`.el/.lisp/.scm` 文件修复，或想在 Claude Code、Codex、Gemini 中批量修复非 Clojure Lisp 文件时使用.
+description: 使用捆绑的 Babashka 脚本修复 Emacs Lisp、Scheme、Common Lisp 等 Lisp 文件的括号/分隔符错误。 当用户提到 Lisp 括号错配、Paren Edit Death Loop、`.el/.lisp/.scm` 文件修复，或想在 Claude Code、Codex、Gemini 中批量修复非 Clojure Lisp 文件时使用。
 ---
 
 # Paren Lisp Repair
