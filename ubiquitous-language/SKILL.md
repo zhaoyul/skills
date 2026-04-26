@@ -10,14 +10,14 @@ disable-model-invocation: true
 
 ## 流程
 
-1.** 扫描对话**查找与领域相关的名词, 动词和概念
-2.** 识别问题**:
-   - 同一词用于不同概念(歧义)
-   - 不同词用于同一概念(同义词)
-   - 模糊或重载的术语
-3.** 提出规范术语表**, 有明确的术语选择
-4.** 写入 `UBIQUITOUS_LANGUAGE.md`** 在工作目录中使用下面的格式
-5.** 在对话中输出摘要**
+1. **扫描对话**查找与领域相关的名词, 动词和概念
+2. **识别问题**:
+- 同一词用于不同概念(歧义)
+- 不同词用于同一概念(同义词)
+- 模糊或重载的术语
+3. **提出规范术语表**, 有明确的术语选择
+4. **写入`UBIQUITOUS_LANGUAGE.md`** 在工作目录中使用下面的格式
+5. **在对话中输出摘要**
 
 ## 输出格式
 
@@ -47,10 +47,10 @@ disable-model-invocation: true
 
 ## 示例对话
 
-> **开发者:* * "当 **Customer** 下 **Order** 时, 我们是否立即创建 **Invoice**?"
-> **领域专家:* * "不 -- **Invoice** 仅在确认 **Fulfillment** 后生成. 如果商品分多个 **Shipments** 发货, 单个 **Order** 可以产生多个 **Invoices**."
-> **开发者:* * "所以如果 **Shipment** 在发货前被取消, 就不存在 **Invoice** 了?"
-> **领域专家:* * "完全正确.** Invoice** 生命周期与 **Fulfillment** 绑定, 而不是与 **Order** 绑定."
+> **开发者:** "当 **Customer** 下 **Order** 时, 我们是否立即创建 **Invoice**?"
+> **领域专家:** "不 -- **Invoice** 仅在确认 **Fulfillment** 后生成. 如果商品分多个 **Shipments** 发货, 单个 **Order** 可以产生多个 **Invoices**."
+> **开发者:** "所以如果 **Shipment** 在发货前被取消, 就不存在 **Invoice** 了?"
+> **领域专家:** "完全正确.** Invoice** 生命周期与 **Fulfillment** 绑定, 而不是与 **Order** 绑定."
 
 ## 标记的歧义
 
@@ -72,13 +72,13 @@ disable-model-invocation: true
 
 ## 示例对话
 
-> **开发者:* * "如何在没有 Docker 的情况下测试 **sync service**?"
+> **开发者:** "如何在没有 Docker 的情况下测试 **sync service**?"
 
-> **领域专家:* * "提供 **filesystem layer** 而不是 **Docker layer**. 它实现相同的 **Sandbox service** 接口, 但使用本地目录作为 **sandbox**."
+> **领域专家:** "提供 **filesystem layer** 而不是 **Docker layer**. 它实现相同的 **Sandbox service** 接口, 但使用本地目录作为 **sandbox**."
 
-> **开发者:* * "所以 **sync-in** 仍然创建 **bundle** 并解压它?"
+> **开发者:** "所以 **sync-in** 仍然创建 **bundle** 并解压它?"
 
-> **领域专家:* * "完全正确.** sync service** 不知道它在和哪个层交谈. 它调用 `exec` 和 `copyIn` -- **filesystem layer** 只是将它们作为本地 shell 命令运行."
+> **领域专家:** "完全正确.**sync service** 不知道它在和哪个层交谈. 它调用 `exec` 和 `copyIn` -- **filesystem layer** 只是将它们作为本地 shell 命令运行."
 
 </example>
 
