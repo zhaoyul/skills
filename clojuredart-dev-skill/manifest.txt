@@ -1,0 +1,5 @@
+SKILL.md
+references/canonical-commands.md
+references/interop-idioms.md
+references/debugging-checklist.md
+examples/prompt-examples.md

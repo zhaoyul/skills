@@ -46,6 +46,12 @@ npx skills@latest add zhaoyul/skills --skill <skill-name>
 
 这些技能帮助你编写、重构和修复代码。
 
+- **clojuredart-dev-skill** — ClojureDart 开发技能，包含跨平台移动开发的标准命令、互操作惯用法和调试检查清单。
+
+  ```
+  npx skills@latest add zhaoyul/skills --skill clojuredart-dev-skill
+  ```
+
 - **clojure-mcp-light** — 在 Clojure 项目中组合使用 `clj-nrepl-eval`、`clj-paren-repair-claude-hook` 和 `clj-paren-repair` 进行 nREPL 求值与分隔符修复。
 
   ```
