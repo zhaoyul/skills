@@ -1,0 +1,37 @@
+metadata:
+  title: "Sample technical audiobook output"
+  language: "zh-CN"
+  audience: "technical listeners"
+
+segments:
+  - id: "intro"
+    type: "prose"
+    mode: "main"
+    speech: "现在我们定义交叉熵损失."
+
+  - id: "eq-cross-entropy"
+    type: "math"
+    mode: "formula-compact"
+    source: "L(\\theta) = -\\sum_{i=1}^{n} y_i \\log p_\\theta(y_i \\mid x_i)"
+    speech: "公式一, 交叉熵损失. L theta 等于负的, 对 i 从 1 到 n 求和, y 下标 i 乘以 log p 下标 theta, 条件是 y 下标 i 给定 x 下标 i."
+    detail_track: "L of theta equals negative sum from i equals 1 to n of y sub i times log of p sub theta, open paren y sub i given x sub i close paren."
+
+  - id: "listing-for-sum"
+    type: "code"
+    language: "c"
+    mode: "code-semantic"
+    source: |
+      int sum = 0;
+      for (int i = 0; i < n; i++) {
+          sum += a[i];
+      }
+    speech: "这段 C 代码计算数组前 n 个元素的总和. 它先把 sum 初始化为 0, 然后用 for 循环让 i 从 0 递增到 n 减 1, 每轮把 a 下标 i 累加到 sum."
+    detail_track: "第一行, int sum 赋值 0. 第二行, for 循环, 括号内三段: int i 赋值 0; i 小于 n; i 自增. 循环体内, sum 加等于 a 方括号 i."
+
+glossary:
+  - term: "theta"
+    reading: "theta"
+    note: "Greek parameter."
+  - term: "sum += a[i]"
+    reading: "sum 加等于 a 方括号 i"
+    note: "C compound assignment."

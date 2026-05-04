@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Technical Audiobook Narration IR",
+  "type": "object",
+  "required": ["metadata", "segments"],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "title": {"type": "string"},
+        "language": {"type": "string"},
+        "audience": {"type": "string"},
+        "version": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "voice": {
+      "type": "object",
+      "additionalProperties": {"type": "string"}
+    },
+    "settings": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "segments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "type", "speech"],
+        "properties": {
+          "id": {"type": "string"},
+          "type": {"enum": ["prose", "math", "code", "figure", "table", "aside"]},
+          "language": {"type": "string"},
+          "mode": {"type": "string"},
+          "source_ref": {"type": "string"},
+          "source": {"type": "string"},
+          "speech": {"type": "string"},
+          "detail_track": {"type": "string"},
+          "ssml_hint": {
+            "type": "object",
+            "properties": {
+              "rate": {"enum": ["x-slow", "slow", "medium", "fast", "x-fast"]},
+              "pause_after_ms": {"type": "integer", "minimum": 0}
+            },
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "glossary": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["term", "reading"],
+        "properties": {
+          "term": {"type": "string"},
+          "reading": {"type": "string"},
+          "note": {"type": "string"}
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

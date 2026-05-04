@@ -133,3 +133,11 @@ npx skills@latest add zhaoyul/skills --skill <skill-name>
   ```
   npx skills@latest add zhaoyul/skills --skill obsidian-vault
   ```
+
+## 媒体与叙述
+
+- **technical-audiobook-narrator** — 技术类有声书叙述技能，包含数学/代码语音风格指南、叙述中间表示(IR)模板和编译脚本。
+
+  ```
+  npx skills@latest add zhaoyul/skills --skill technical-audiobook-narrator
+  ```

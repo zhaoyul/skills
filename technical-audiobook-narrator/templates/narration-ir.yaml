@@ -1,0 +1,59 @@
+metadata:
+  title: "Example technical audiobook chapter"
+  language: "zh-CN"
+  audience: "technical listeners"
+  version: "0.1"
+
+voice:
+  prose: "zh-CN-main"
+  math: "zh-CN-main"
+  code: "zh-CN-code"
+
+settings:
+  prose_rate: "medium"
+  math_rate: "slow"
+  code_rate: "slow"
+  pause_after_formula_ms: 400
+  pause_after_code_ms: 500
+
+segments:
+  - id: "ch01-p001"
+    type: "prose"
+    mode: "main"
+    source: "Now we define the cross entropy loss."
+    speech: "现在我们定义交叉熵损失."
+    ssml_hint:
+      rate: "medium"
+      pause_after_ms: 250
+
+  - id: "eq-cross-entropy"
+    type: "math"
+    mode: "formula-compact"
+    source: "L(\\theta) = -\\sum_{i=1}^{n} y_i \\log p_\\theta(y_i \\mid x_i)"
+    speech: "公式一, 交叉熵损失. L theta 等于负的, 对 i 从 1 到 n 求和, y 下标 i 乘以 log p 下标 theta, 条件是 y 下标 i 给定 x 下标 i."
+    detail_track: "L of theta equals negative sum from i equals 1 to n of y sub i times log of p sub theta, open paren y sub i given x sub i close paren."
+    ssml_hint:
+      rate: "slow"
+      pause_after_ms: 400
+
+  - id: "listing-for-sum"
+    type: "code"
+    language: "c"
+    mode: "code-semantic"
+    source: |
+      for (int i = 0; i < n; i++) {
+          sum += a[i];
+      }
+    speech: "这是一个 for 循环. i 从 0 开始, 当 i 小于 n 时继续, 每轮 i 自增. 循环体把 a 下标 i 累加到 sum."
+    detail_track: "for, 括号内三段: int i 赋值 0; i 小于 n; i 自增. 块内: sum 加等于 a 方括号 i."
+    ssml_hint:
+      rate: "slow"
+      pause_after_ms: 500
+
+glossary:
+  - term: "theta"
+    reading: "theta"
+    note: "Greek letter, model parameter."
+  - term: "sum += a[i]"
+    reading: "sum 加等于 a 方括号 i"
+    note: "C compound assignment."
