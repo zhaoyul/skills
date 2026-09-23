@@ -110,6 +110,12 @@ npx skills@latest add zhaoyul/skills --skill <skill-name>
 
 ## 写作与知识
 
+- **book-translate-zh-org** — 将 PDF/EPUB 图书翻译为简体中文 Emacs Org-mode 工程, 输出主 `.org` 文件与 `images/` 目录, 支持图片精确抽取/裁切、公式与脚注保真、术语一致性、断点续跑和出版级 QA。
+
+  ```
+  npx skills@latest add zhaoyul/skills --skill book-translate-zh-org
+  ```
+
 - **write-a-skill** — 创建具有适当结构、渐进披露和捆绑资源的新技能。
 
   ```
